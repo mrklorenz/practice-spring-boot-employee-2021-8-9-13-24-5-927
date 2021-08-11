@@ -70,7 +70,28 @@ public class CompanyServiceTest {
         assertEquals(employees.size(), actualEmployees.size());
     }
 
-    
+    @Test
+    public void should_return_companies_when_find_companies_by_pagination_given_page_index_and_page_size() {
+        //given
+        List<Company> companies = generateCompanies();
+        given(companyRepository.getCompanies()).willReturn(companies);
+        int pageIndex = 1;
+        int pageSize = 3;
+
+        List<Company> pageCompanies = new ArrayList<>();
+        pageCompanies.add(companies.get(0));
+        pageCompanies.add(companies.get(1));
+        pageCompanies.add(companies.get(2));
+
+        //when
+        List<Company> actualCompanies = companyService.findCompaniesByPagination(pageIndex, pageSize);
+
+        //then
+        assertEquals(pageCompanies.size(), actualCompanies.size());
+        assertIterableEquals(pageCompanies, actualCompanies);
+    }
+
+
 
     private List<Company> generateCompanies() {
         List<Company> companies = new ArrayList<>();
