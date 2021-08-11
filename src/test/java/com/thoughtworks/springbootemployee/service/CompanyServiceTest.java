@@ -109,13 +109,13 @@ public class CompanyServiceTest {
     }
 
     @Test
-    public void should_update_employee_when_update_employee_by_id_employee_given_employee() {
+    public void should_update_company_when_update_company_by_id_given_company_id() {
         //given
         List<Company> companies = generateCompanies();
         EmployeeRepository newEmployeeRepo = new EmployeeRepository();
         given(companyRepository.getCompanies()).willReturn(companies);
         Integer companyID = 1;
-        Company newCompany = new Company(4, "YANGMING", newEmployeeRepo.getEmployees().subList(2,4));
+        Company newCompany = new Company(1, "YANGMING", newEmployeeRepo.getEmployees().subList(2,4));
 
         //when
         Company actualCompany = companyService.updateCompanyByID(companyID, newCompany);
@@ -123,7 +123,23 @@ public class CompanyServiceTest {
         //then
         assertEquals(newCompany.getName(), actualCompany.getName());
         assertEquals(newCompany.getId(), actualCompany.getId());
-        assertEquals(newCompany,actualCompany);
+        assertEquals(newCompany.getEmployees(),actualCompany.getEmployees());
+    }
+
+    @Test
+    public void should_delete_company_when_delete_company_by_id_given_company_id() {
+        //given
+        List<Company> companies = generateCompanies();
+        given(companyRepository.getCompanies()).willReturn(companies);
+        int companyID = 2;
+
+        List<Company> actualCompanies = generateCompanies();
+        actualCompanies.remove(1);
+        //when
+        companyService.deleteCompanyByID(companyID);
+
+        //then
+        assertEquals(companies.size(), actualCompanies.size());
     }
 
 
