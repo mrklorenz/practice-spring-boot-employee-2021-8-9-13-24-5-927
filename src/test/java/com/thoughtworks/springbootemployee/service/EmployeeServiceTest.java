@@ -106,6 +106,23 @@ public class EmployeeServiceTest {
         assertEquals(employees.size(), actualEmployees.size());
     }
 
+    @Test
+    public void should_update_employee_when_update_employee_given_employee() {
+        //given
+        List<Employee> employees = generateEmployees();
+        given(employeeRepository.getEmployees()).willReturn(employees);
+        Integer employeeID = 1;
+        Employee newEmployee = new Employee(1, "Bruno", 30, "male", 9992);
+
+        //when
+        Employee actualEmployee = employeeService.updateEmployeeByID(employeeID, newEmployee);
+
+        //then
+        assertEquals(newEmployee.getName(), actualEmployee.getName());
+        assertEquals(newEmployee.getAge(), actualEmployee.getAge());
+        assertEquals(newEmployee.getSalary(), actualEmployee.getSalary());
+    }
+
 
 
     public List<Employee> generateEmployees() {
