@@ -17,6 +17,7 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
+
     @InjectMocks
     private EmployeeService employeeService;
 
@@ -37,7 +38,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_employee_when_find_employee_by_id_given_employee_id(){
+    public void should_return_employee_when_find_employee_by_id_given_employee_id() {
         //given
         List<Employee> employees = generateEmployees();
         given(employeeRepository.getEmployees()).willReturn(employees);
@@ -51,7 +52,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_employees_when_find_employees_by_gender_given_gender(){
+    public void should_return_employees_when_find_employees_by_gender_given_gender() {
         //given
         List<Employee> employees = generateEmployees();
         given(employeeRepository.getEmployees()).willReturn(employees);
@@ -69,7 +70,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_employees_when_find_employees_by_pagination_given_page_index_and_page_size(){
+    public void should_return_employees_when_find_employees_by_pagination_given_page_index_and_page_size() {
         //given
         List<Employee> employees = generateEmployees();
         given(employeeRepository.getEmployees()).willReturn(employees);
@@ -89,7 +90,25 @@ public class EmployeeServiceTest {
         assertIterableEquals(pageEmployees, actualEmployees);
     }
 
-    public List<Employee> generateEmployees(){
+    @Test
+    public void should_add_employee_when_add_employee_given_employee() {
+        //given
+        List<Employee> employees = generateEmployees();
+        given(employeeRepository.getEmployees()).willReturn(employees);
+
+        Employee employee = new Employee(employees.size() + 1, "alice", 20, "female", 1220);
+        List<Employee> actualEmployees = generateEmployees();
+        actualEmployees.add(employee);
+        //when
+        employeeService.addEmployee(employee);
+
+        //then
+        assertEquals(employees.size(), actualEmployees.size());
+    }
+
+
+
+    public List<Employee> generateEmployees() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "alice", 20, "female", 1000));
         employees.add(new Employee(2, "bob", 20, "male", 1000));
@@ -97,9 +116,6 @@ public class EmployeeServiceTest {
         employees.add(new Employee(4, "mark", 20, "male", 1000));
         return employees;
     }
-
-
-
 
 
 }
