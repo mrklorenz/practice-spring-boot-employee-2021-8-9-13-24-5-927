@@ -52,4 +52,19 @@ public class CompanyService {
         companyRepository.getCompanies().add(new Company(companyRepository.getCompanies().size() + 1,
                 company.getName(), company.getEmployees()));
     }
+
+    public Company updateCompanyByID(Integer companyID, Company newCompany) {
+        return companyRepository.getCompanies()
+                .stream()
+                .filter(company -> company.getId().equals(companyID))
+                .findFirst()
+                .map(company -> updateEmployeeInfo(company, newCompany))
+                .get();
+    }
+
+    private Company updateEmployeeInfo(Company company, Company newCompany) {
+        if (newCompany.getName() != null) company.setName(newCompany.getName());
+        if (newCompany.getEmployees() != null) company.setEmployees(newCompany.getEmployees());
+        return company;
+    }
 }
