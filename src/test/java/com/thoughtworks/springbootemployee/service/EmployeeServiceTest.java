@@ -11,8 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -107,7 +106,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_update_employee_when_update_employee_given_employee() {
+    public void should_update_employee_when_update_employee_by_id_employee_given_employee() {
         //given
         List<Employee> employees = generateEmployees();
         given(employeeRepository.getEmployees()).willReturn(employees);
@@ -122,6 +121,24 @@ public class EmployeeServiceTest {
         assertEquals(newEmployee.getAge(), actualEmployee.getAge());
         assertEquals(newEmployee.getSalary(), actualEmployee.getSalary());
     }
+
+    @Test
+    public void should_delete_employee_when_delete_employee_by_id_employee_given_employee() {
+        //given
+        List<Employee> employees = generateEmployees();
+        given(employeeRepository.getEmployees()).willReturn(employees);
+        int employeeID = 2;
+
+        List<Employee> actualEmployees = generateEmployees();
+        actualEmployees.remove(1);
+        //when
+        employeeService.deleteEmployeeByID(employeeID);
+
+        //then
+        assertEquals(employees.size(), actualEmployees.size());
+    }
+
+
 
 
 
