@@ -25,9 +25,6 @@ public class CompanyServiceTest {
     @Mock
     private CompanyRepository companyRepository;
 
-    @Mock
-    private EmployeeRepository employeeRepository;
-
     @Test
     public void should_return_all_companies_when_getAllCompanies_given_all_companies() {
         //given
@@ -55,11 +52,32 @@ public class CompanyServiceTest {
         assertEquals(companies.get(0), actualCompany);
     }
 
+    @Test
+    public void should_return_employees_when_get_employee_list_given_company_id() {
+        //given
+        List<Company> companies = generateCompanies();
+        EmployeeRepository employeeRepository = new EmployeeRepository();
+        List<Employee> employees = employeeRepository.getEmployees().subList(0,2);
+
+        given(companyRepository.getCompanies()).willReturn(companies);
+        Integer companyID = 1;
+
+        //when
+        List<Employee> actualEmployees = companyService.getEmployeeList(companyID);
+
+        //then
+        assertEquals(employees.get(0).getName(), actualEmployees.get(0).getName());
+        assertEquals(employees.size(), actualEmployees.size());
+    }
+
+    
+
     private List<Company> generateCompanies() {
         List<Company> companies = new ArrayList<>();
-        companies.add(new Company(1, "OOCL", employeeRepository.getEmployees()));
-        companies.add(new Company(2, "COSCO", employeeRepository.getEmployees()));
-        companies.add(new Company(3, "MAERSK", employeeRepository.getEmployees()));
+        EmployeeRepository newEmployeeRepo = new EmployeeRepository();
+        companies.add(new Company(1, "OOCL", newEmployeeRepo.getEmployees().subList(0, 2)));
+        companies.add(new Company(2, "COSCO", newEmployeeRepo.getEmployees().subList(2, 4)));
+        companies.add(new Company(3, "MAERSK", newEmployeeRepo.getEmployees().subList(4, 6)));
         return companies;
     }
 }
