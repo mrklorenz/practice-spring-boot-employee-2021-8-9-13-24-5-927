@@ -138,10 +138,6 @@ public class EmployeeServiceTest {
         assertEquals(employees.size(), actualEmployees.size());
     }
 
-
-
-
-
     public List<Employee> generateEmployees() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "alice", 20, "female", 1000));
@@ -150,6 +146,5 @@ public class EmployeeServiceTest {
         employees.add(new Employee(4, "mark", 20, "male", 1000));
         return employees;
     }
-
 
 }
