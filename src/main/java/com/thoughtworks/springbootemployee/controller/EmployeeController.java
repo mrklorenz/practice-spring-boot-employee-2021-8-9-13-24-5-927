@@ -29,4 +29,9 @@ public class EmployeeController {
         return employeeService.findEmployeesByGender(gender);
     }
 
+    @GetMapping(params = {"pageIndex", "pageSize"})
+    public List<Employee> findEmployeesByPagination(@RequestParam int pageIndex, @RequestParam int pageSize) {
+        return employeeService.findEmployeesByPagination(pageIndex, pageSize);
+    }
+
 }
