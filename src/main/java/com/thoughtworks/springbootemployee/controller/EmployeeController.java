@@ -34,4 +34,10 @@ public class EmployeeController {
         return employeeService.findEmployeesByPagination(pageIndex, pageSize);
     }
 
+    @PostMapping
+    public void addEmployee(@RequestBody Employee employee)
+    {
+        employeeService.addEmployee(employee);
+    }
+
 }
