@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -36,5 +37,14 @@ public class CompanyService {
                 .findFirst()
                 .map(Company::getEmployees)
                 .get();
+    }
+
+    public List<Company> findCompaniesByPagination(int pageIndex, int pageSize) {
+        int skipValue = (pageIndex - 1) * pageSize;
+        return companyRepository.getCompanies()
+                .stream()
+                .skip(skipValue)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }
