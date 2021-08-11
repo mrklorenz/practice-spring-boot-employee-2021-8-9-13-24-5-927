@@ -91,6 +91,23 @@ public class CompanyServiceTest {
         assertIterableEquals(pageCompanies, actualCompanies);
     }
 
+    @Test
+    public void should_add_company_when_add_company_given_company() {
+        //given
+        List<Company> companies = generateCompanies();
+        EmployeeRepository newEmployeeRepo = new EmployeeRepository();
+        given(companyRepository.getCompanies()).willReturn(companies);
+
+        Company company = new Company(1, "OOCL", newEmployeeRepo.getEmployees().subList(0, 2));
+        List<Company> actualCompanies = generateCompanies();
+        actualCompanies.add(company);
+        //when
+        companyService.addCompany(company);
+
+        //then
+        assertEquals(companies.size(), actualCompanies.size());
+    }
+
 
 
     private List<Company> generateCompanies() {
