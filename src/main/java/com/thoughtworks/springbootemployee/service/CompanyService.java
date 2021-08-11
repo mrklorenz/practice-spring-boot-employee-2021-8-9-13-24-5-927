@@ -58,7 +58,7 @@ public class CompanyService {
                 .stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
-                .map(company -> updateEmployeeInfo(company, newCompany))
+                .map(company -> updateCompanyInfo(company, newCompany))
                 .get();
     }
 
@@ -71,7 +71,7 @@ public class CompanyService {
                 .ifPresent(company -> companyRepository.getCompanies().remove(company));
     }
 
-    private Company updateEmployeeInfo(Company company, Company newCompany) {
+    private Company updateCompanyInfo(Company company, Company newCompany) {
         if (newCompany.getName() != null) company.setName(newCompany.getName());
         if (newCompany.getEmployees() != null) company.setEmployees(newCompany.getEmployees());
         return company;
