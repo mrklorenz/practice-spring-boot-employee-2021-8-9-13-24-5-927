@@ -21,4 +21,7 @@ public class CompanyService {
     }
 
 
+    public Company findCompanyByID(Integer companyID) {
+        return null;
+    }
 }
