@@ -47,4 +47,9 @@ public class CompanyService {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public void addCompany(Company company) {
+        companyRepository.getCompanies().add(new Company(companyRepository.getCompanies().size() + 1,
+                company.getName(), company.getEmployees()));
+    }
 }
