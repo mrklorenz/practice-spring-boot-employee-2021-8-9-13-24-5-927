@@ -35,9 +35,13 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody Employee employee)
-    {
+    public void addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
+    }
+
+    @PutMapping(path = "/{employeeID}")
+    public Employee updateEmployee(@PathVariable Integer employeeID, @RequestBody Employee employeeDetails) {
+        return employeeService.updateEmployeeByID(employeeID, employeeDetails);
     }
 
 }
