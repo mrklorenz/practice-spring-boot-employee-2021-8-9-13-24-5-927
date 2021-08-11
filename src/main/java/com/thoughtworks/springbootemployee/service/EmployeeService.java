@@ -17,8 +17,7 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> getAllEmployees()
-    {
+    public List<Employee> getAllEmployees() {
         return employeeRepository.getEmployees();
     }
 
@@ -40,11 +39,33 @@ public class EmployeeService {
     public List<Employee> findEmployeesByPagination(int pageIndex, int pageSize) {
         int skipValue = (pageIndex - 1) * pageSize;
         return employeeRepository.getEmployees()
-                .stream().skip(skipValue).limit(pageSize).collect(Collectors.toList());
+                .stream()
+                .skip(skipValue)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 
     public void addEmployee(Employee employee) {
         employeeRepository.getEmployees().add(new Employee(employeeRepository.getEmployees().size() + 1,
                 employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary()));
+    }
+
+    public Employee updateEmployeeByID(Integer employeeID, Employee employeeDetails) {
+        return employeeRepository.getEmployees()
+                .stream()
+                .filter(employee -> employee.getId().equals(employeeID))
+                .findFirst()
+                .map(employee -> updateEmployeeInfo(employee, employeeDetails))
+                .get();
+    }
+
+    private Employee updateEmployeeInfo(Employee employee, Employee employeeDetails) {
+
+        if (employeeDetails.getName() != null) employee.setName(employeeDetails.getName());
+        if (employeeDetails.getAge() != null) employee.setAge(employeeDetails.getAge());
+        if (employeeDetails.getGender() != null) employee.setGender(employeeDetails.getGender());
+        if (employeeDetails.getSalary() != null) employee.setSalary(employeeDetails.getSalary());
+
+        return employee;
     }
 }
