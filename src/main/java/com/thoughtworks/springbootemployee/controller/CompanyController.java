@@ -44,4 +44,10 @@ public class CompanyController {
     public Company updateCompany(@PathVariable Integer companyID, @RequestBody Company companyDetails) {
         return companyService.updateCompanyByID(companyID, companyDetails);
     }
+
+    @DeleteMapping(path = "/{companyID}")
+    public void removeCompany(@PathVariable Integer companyID) {
+        companyService.deleteCompanyByID(companyID);
+    }
+
 }

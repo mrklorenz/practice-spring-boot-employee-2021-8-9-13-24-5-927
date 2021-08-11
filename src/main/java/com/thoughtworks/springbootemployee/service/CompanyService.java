@@ -62,6 +62,15 @@ public class CompanyService {
                 .get();
     }
 
+
+    public void deleteCompanyByID(int companyID) {
+        companyRepository.getCompanies()
+                .stream()
+                .filter(company -> company.getId().equals(companyID))
+                .findFirst()
+                .ifPresent(company -> companyRepository.getCompanies().remove(company));
+    }
+
     private Company updateEmployeeInfo(Company company, Company newCompany) {
         if (newCompany.getName() != null) company.setName(newCompany.getName());
         if (newCompany.getEmployees() != null) company.setEmployees(newCompany.getEmployees());
