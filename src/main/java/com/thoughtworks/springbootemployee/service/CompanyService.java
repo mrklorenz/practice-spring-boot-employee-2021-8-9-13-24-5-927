@@ -20,8 +20,11 @@ public class CompanyService {
         return companyRepository.getCompanies();
     }
 
-
     public Company findCompanyByID(Integer companyID) {
-        return null;
+        return companyRepository.getCompanies()
+                .stream()
+                .filter(company -> company.getId().equals(companyID))
+                .findFirst()
+                .orElse(null);
     }
 }
