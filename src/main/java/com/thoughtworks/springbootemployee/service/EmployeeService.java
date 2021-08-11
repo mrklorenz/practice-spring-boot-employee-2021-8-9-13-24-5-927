@@ -36,4 +36,10 @@ public class EmployeeService {
                 .filter(employee -> employee.getGender().equals(employeeGender))
                 .collect(Collectors.toList());
     }
+
+    public List<Employee> findEmployeesByPagination(int pageIndex, int pageSize) {
+        int skipValue = (pageIndex - 1) * pageSize;
+        return employeeRepository.getEmployees()
+                .stream().skip(skipValue).limit(pageSize).collect(Collectors.toList());
+    }
 }
