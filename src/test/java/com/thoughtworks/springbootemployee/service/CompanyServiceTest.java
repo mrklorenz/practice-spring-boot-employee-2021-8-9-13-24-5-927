@@ -108,6 +108,23 @@ public class CompanyServiceTest {
         assertEquals(companies.size(), actualCompanies.size());
     }
 
+    @Test
+    public void should_update_employee_when_update_employee_by_id_employee_given_employee() {
+        //given
+        List<Company> companies = generateCompanies();
+        EmployeeRepository newEmployeeRepo = new EmployeeRepository();
+        given(companyRepository.getCompanies()).willReturn(companies);
+        Integer companyID = 1;
+        Company newCompany = new Company(4, "YANGMING", newEmployeeRepo.getEmployees().subList(2,4));
+
+        //when
+        Company actualCompany = companyService.updateCompanyByID(companyID, newCompany);
+
+        //then
+        assertEquals(newCompany.getName(), actualCompany.getName());
+        assertEquals(newCompany.getId(), actualCompany.getId());
+        assertEquals(newCompany,actualCompany);
+    }
 
 
     private List<Company> generateCompanies() {
