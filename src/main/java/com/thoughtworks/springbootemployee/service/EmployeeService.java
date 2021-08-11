@@ -42,4 +42,9 @@ public class EmployeeService {
         return employeeRepository.getEmployees()
                 .stream().skip(skipValue).limit(pageSize).collect(Collectors.toList());
     }
+
+    public void addEmployee(Employee employee) {
+        employeeRepository.getEmployees().add(new Employee(employeeRepository.getEmployees().size() + 1,
+                employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary()));
+    }
 }
