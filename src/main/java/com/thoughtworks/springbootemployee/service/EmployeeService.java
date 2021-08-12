@@ -22,7 +22,7 @@ public class EmployeeService {
     }
 
     public Employee findEmployeeById(Integer employeeID) {
-        return employeeRepository.getEmployees()
+        return getAllEmployees()
                 .stream()
                 .filter(employee -> employee.getId().equals(employeeID))
                 .findFirst()
@@ -30,7 +30,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findEmployeesByGender(String employeeGender) {
-        return employeeRepository.getEmployees()
+        return getAllEmployees()
                 .stream()
                 .filter(employee -> employee.getGender().equals(employeeGender))
                 .collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class EmployeeService {
 
     public List<Employee> findEmployeesByPagination(int pageIndex, int pageSize) {
         int skipValue = (pageIndex - 1) * pageSize;
-        return employeeRepository.getEmployees()
+        return getAllEmployees()
                 .stream()
                 .skip(skipValue)
                 .limit(pageSize)
@@ -46,12 +46,12 @@ public class EmployeeService {
     }
 
     public void addEmployee(Employee employee) {
-        employeeRepository.getEmployees().add(new Employee(employeeRepository.getEmployees().size() + 1,
+        getAllEmployees().add(new Employee(employeeRepository.getEmployees().size() + 1,
                 employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary()));
     }
 
     public Employee updateEmployeeByID(Integer employeeID, Employee employeeDetails) {
-        return employeeRepository.getEmployees()
+        return getAllEmployees()
                 .stream()
                 .filter(employee -> employee.getId().equals(employeeID))
                 .findFirst()
@@ -60,7 +60,7 @@ public class EmployeeService {
     }
 
     public void deleteEmployeeByID(int employeeID) {
-        employeeRepository.getEmployees()
+        getAllEmployees()
                 .stream()
                 .filter(employee -> employee.getId().equals(employeeID))
                 .findFirst()

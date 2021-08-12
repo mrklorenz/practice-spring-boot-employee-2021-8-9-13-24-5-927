@@ -23,7 +23,7 @@ public class CompanyService {
     }
 
     public Company findCompanyByID(Integer companyID) {
-        return companyRepository.getCompanies()
+        return getAllCompanies()
                 .stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
@@ -31,7 +31,7 @@ public class CompanyService {
     }
 
     public List<Employee> getEmployeeList(Integer companyID) {
-        return companyRepository.getCompanies()
+        return getAllCompanies()
                 .stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
@@ -41,7 +41,7 @@ public class CompanyService {
 
     public List<Company> findCompaniesByPagination(int pageIndex, int pageSize) {
         int skipValue = (pageIndex - 1) * pageSize;
-        return companyRepository.getCompanies()
+        return getAllCompanies()
                 .stream()
                 .skip(skipValue)
                 .limit(pageSize)
@@ -54,7 +54,7 @@ public class CompanyService {
     }
 
     public Company updateCompanyByID(Integer companyID, Company newCompany) {
-        return companyRepository.getCompanies()
+        return getAllCompanies()
                 .stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
@@ -64,7 +64,7 @@ public class CompanyService {
 
 
     public void deleteCompanyByID(int companyID) {
-        companyRepository.getCompanies()
+        getAllCompanies()
                 .stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
